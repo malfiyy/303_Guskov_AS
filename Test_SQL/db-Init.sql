@@ -1,13 +1,15 @@
+-- pragma foreign_keys = 1;
+
 DROP TABLE IF EXISTS students;
 CREATE TABLE students(
 		id INTEGER PRIMARY KEY, 
-		surname VARCHAR, 
-		name VARCHAR ,
-		patronymic VARCHAR
+		surname VARCHAR(30), 
+		name VARCHAR(30),
+		patronymic VARCHAR(3)
 );
-INSERT INTO students VALUES
 
-(1, 'Alekseev', 'Aleksey', null)
+INSERT INTO students VALUES
+(1, 'Alekseev', 'Aleksey', null),
 (2, 'Ашрятова', 'Римма', null),
 (3, 'Борисов', 'Александр', null ),
 (4, 'Гарин', 'Максим', null),
@@ -60,18 +62,35 @@ INSERT INTO students VALUES
 (51,'Тростин','С','А'),
 (52,'Шабарин','И','А');
 
-DROP TABLE IF EXISTS labs
+DROP TABLE IF EXISTS groups;
+CREATE TABLE groups(
+		id INTEGER PRIMARY KEY
+);
+INSERT INTO groups VALUES
+(303),
+(402);
+
+
+DROP TABLE IF EXISTS labs;
 CREATE TABLE labs(
 		id INTEGER PRIMARY KEY, 
 		num_lab Integer not null,
 		group_id Integer,
 		max_point DOUBLE NOT NULL,
-		dead_line TEXT NOT NULL
+		dead_line TEXT NOT NULL,
 		FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
 
+INSERT INTO labs VALUES
+(1, 1, 402, 8, '06.02.2021'),
+(2, 2, 402, 8, '13.02.2021'),
+(3, 3, 402, 9, '27.02.2021'),
+(4, 4, 402, 12, '13.03.2021'),
+(5, 5, 402, 12, '27.03.2021'),
+(6, 6, 402, 12, '10.04.2021'),
+(7, 7, 402, 9, '17.04.2021');
 
-DROP TABLE IF EXISTS academic_performance
+DROP TABLE IF EXISTS academic_performance;
 CREATE TABLE academic_performance(
 		student_id integer NOT NULL,
 		id_lab integer NOT NULL,
@@ -81,14 +100,6 @@ CREATE TABLE academic_performance(
 		FOREIGN KEY (id_lab) REFERENCES labs(num_lab) ON DELETE CASCADE
 );
 
-
-DROP TABLE IF EXISTS groups;
-CREATE TABLE groups(
-		id INTEGER PRIMARY KEY, 
-);
-INSERT INTO groups VALUES
-(303),
-(402);
 
 DROP TABLE IF EXISTS group_student;
 CREATE TABLE group_student(
@@ -150,6 +161,4 @@ INSERT INTO group_student VALUES
 (49,402),
 (50,402),
 (51,402),
-(52,402),;
-​
-
+(52,402);
